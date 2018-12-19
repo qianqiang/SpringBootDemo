@@ -1,0 +1,76 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.18.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot' 
+
+jar {
+    baseName = 'SpringBootDemo'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web"){
+//		exclude(module: 'logback-core')
+//		exclude(module: 'logback-classic')
+		exclude(module: 'log4j-over-slf4j')
+	}
+	compile("org.springframework.boot:spring-boot-starter-data-jpa"){
+//		exclude(module: 'logback-core')
+//		exclude(module: 'logback-classic')
+		exclude(module: 'log4j-over-slf4j')
+		exclude(module: 'slf4j-simple')
+	}
+//	compile("org.springframework.boot:spring-boot-starter-security"){
+////		exclude(module: 'logback-core')
+////		exclude(module: 'logback-classic')
+//		exclude(module: 'log4j-over-slf4j')
+//		exclude(module: 'slf4j-simple')
+//	}
+//	compile("net.sf.ehcache:ehcache:2.9.0"){
+////		exclude(module: 'logback-core')
+////		exclude(module: 'logback-classic')
+//		exclude(module: 'log4j-over-slf4j')
+//		exclude(module: 'slf4j-simple')
+//	}
+	compile("org.springframework:spring-context-support"){
+//		exclude(module: 'logback-core')
+//		exclude(module: 'logback-classic')
+		exclude(module: 'log4j-over-slf4j')
+		exclude(module: 'slf4j-simple')
+	}
+	compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.3'
+
+	compile fileTree(dir: 'lib', include: '*.jar')
+}
+
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
