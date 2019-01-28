@@ -10,7 +10,7 @@ import com.dika.service.DemoService;
 public class DemoServiceImpl implements DemoService {
     
     @Autowired
-    private DemoDao demoDao = new DemoDao();
+    private DemoDao demoDao;
 
     @Override
     public void testFunction() {

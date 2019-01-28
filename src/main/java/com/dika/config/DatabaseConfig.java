@@ -1,4 +1,4 @@
-package com.dika;
+package com.dika.config;
 
 import javax.sql.DataSource;
 
