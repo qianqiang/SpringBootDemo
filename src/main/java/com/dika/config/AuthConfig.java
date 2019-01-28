@@ -27,6 +27,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder builder)
             throws Exception {
          builder.inMemoryAuthentication()
+                 .withUser("123@189.cn").password("user").roles("USER").and()
                  .withUser("jn").password("user").roles("USER").and()
                  .withUser("admin").password("admin").roles("ADMIN").and()
                  .withUser("qd").password("user").roles("USER");
@@ -35,12 +36,11 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/css/**", "/bootstrap/**", "/login.html", "/login", "/static/index.html", "/static/**").permitAll()
-                .antMatchers("/bootstrap/**").permitAll()
+                .antMatchers("/bootstrap/**", "/pages/login.html", "/login", "/plugins/**", "/dist/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login.html")
+                .loginPage("/pages/login.html")
                 .loginProcessingUrl("/login")
                 .usernameParameter("userName")
                 .passwordParameter("password")
@@ -49,7 +49,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
                 .key("9D119EE5A2B7DAF6B9DC1EF871D0AC3C")
                 .and()
-//                .exceptionHandling().authenticationEntryPoint( macLoginUrlAuthenticationEntryPoint());
                 .sessionManagement()
                 .maximumSessions(1)
                 .expiredUrl("/login?expired");
