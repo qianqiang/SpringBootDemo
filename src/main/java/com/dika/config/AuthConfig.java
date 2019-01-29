@@ -44,7 +44,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("userName")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/index.html").permitAll()
+                .defaultSuccessUrl("/base.html").permitAll()
                 .and()
                 .rememberMe()
                 .key("9D119EE5A2B7DAF6B9DC1EF871D0AC3C")
